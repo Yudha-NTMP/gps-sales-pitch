@@ -2392,7 +2392,7 @@ function openPitchInSim(resKey) {
 }
 
 // ═══════════════════════════════════════════════
-// COPILOT DRAWER LOGIC (DYNAMIC KNOWLEDGE ENGINE)
+// COPILOT DRAWER LOGIC (DYNAMIC FULL KNOWLEDGE ENGINE)
 // ═══════════════════════════════════════════════
 function toggleCopilot() {
   const m = document.getElementById('copilotModal');
@@ -2422,7 +2422,7 @@ function sendCopilotPrompt() {
   inp.value = '';
   container.scrollTop = container.scrollHeight;
 
-  // Dynamic Full Knowledge Engine
+  // Dynamic Knowledge Retrieval Engine
   setTimeout(() => {
     const bDiv = document.createElement('div');
     bDiv.className = 'cp-msg bot';
@@ -2433,10 +2433,10 @@ function sendCopilotPrompt() {
     // A. GREETINGS & META QUESTIONS
     if (q.match(/^(halo|hai|pagi|siang|sore|malam|hello|hi|tes|test|ping|hey)/) || q.includes('siapa kamu') || q.includes('kamu siapa') || q.includes('bot apa') || q.includes('bisa apa') || q.includes('fungsi kamu') || q.includes('cara pakai') || q.includes('bantuan') || q.includes('kok bisa')) {
       reply = `
-        Halo! Saya <strong>IntelliTrac Sales Copilot</strong>. Saya terhubung langsung ke seluruh database <strong>Playbook 8 Sektor Industri, Pitch Simulator, Objection Battlecards, dan Katalog Sensor IoT</strong> IntelliTrac.<br><br>
-        Anda bisa tanyakan apa saja, contoh topik cepat:
+        Halo! Saya <strong>IntelliTrac Sales Copilot</strong>. Saya siap bantu carikan rekomendasi hardware, skrip percakapan sales 8 industri, spesifikasi teknis sensor IoT, dan jawaban atas keberatan prospek.<br><br>
+        Contoh pertanyaan yang bisa langsung Anda klik:
         <div class="cp-chip-wrap">
-          <span class="cp-chip" onclick="askCopilot('Door sensor kargo pendingin')">🚪 Door Sensor</span>
+          <span class="cp-chip" onclick="askCopilot('Spesifikasi door sensor')">🚪 Door Sensor</span>
           <span class="cp-chip" onclick="askCopilot('Solusi BBM solar dikuras')">⛽ Masalah Solar</span>
           <span class="cp-chip" onclick="askCopilot('Kamera AI DMS supir ngantuk')">📹 Kamera DMS</span>
           <span class="cp-chip" onclick="askCopilot('Truk sawit di area blank spot')">🚜 Sawit Blank Spot</span>
@@ -2445,14 +2445,110 @@ function sendCopilotPrompt() {
         </div>
       `;
     }
-    // B. OBJECTION HANDLING BATTLECARDS
+    // B. SENSOR SPECIFIC QUERIES (FULL IN-CHAT SPECS)
+    else if (q.includes('door') || q.includes('pintu')) {
+      reply = `
+        <span class="cp-badge">📦 SPESIFIKASI SENSOR : DOOR AUTO-CAPTURE</span><br>
+        <strong>Perangkat:</strong> Magnetic Door Sensor + Kamera AI JC261 / JC450.<br>
+        <strong>Cara Kerja:</strong> Sensor dipasang pada frame pintu boks kargo. Begitu pintu terbuka di luar geofence titik bongkar resmi, sistem mengirim alert real-time ke dashboard dan memicu kamera merekam video 5-15 detik.<br>
+        <strong>Sektor Utama:</strong> Retail Cold Chain (kargo makanan beku/daging/farmasi) & Truk Ekspedisi.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Dengan sensor pintu terintegrasi kamera, manajemen langsung tahu detik demi detik siapa yang membuka kargo dan apa yang terjadi di pintu boks, sehingga risiko penyusutan barang di perjalanan bisa dicegah."</em>
+        <div class="cp-action-row">
+          <button class="cp-action-btn" onclick="openPitchInSim('result_coldchain_cam')">⚡ Buka di Simulator</button>
+          <button class="cp-action-btn" onclick="selectView('specs')">📚 Tab Sensor Specs</button>
+        </div>
+      `;
+    } else if (q.includes('pto') || q.includes('hourmeter') || q.includes('hidrolik') || (q.includes('jam kerja') && q.includes('alat berat'))) {
+      reply = `
+        <span class="cp-badge">📦 SPESIFIKASI SENSOR : PTO WORKING HOURMETER</span><br>
+        <strong>Perangkat:</strong> VT-45 + PTO Indicator Sensor.<br>
+        <strong>Cara Kerja:</strong> Membaca arus hidrolik/PTO saat unit bekerja aktif (misal bucket ngeruk atau dump ngedump), membedakannya secara presisi dari jam kunci kontak menyala diam (idle).<br>
+        <strong>Sektor Utama:</strong> Pertambangan, Alat Berat Excavator, Dump Truck, dan Crane.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Pak, di area tambang beban kerja unit tinggi sekali. Sensor PTO IntelliTrac mencatat jam kerja riil saat hidrolik bekerja, bukan sekadar kunci kontak ON. Tim maintenance jadi punya data pasti untuk jadwal servis berkala."</em>
+        <div class="cp-action-row">
+          <button class="cp-action-btn" onclick="openPitchInSim('result_mining_hm')">⚡ Buka di Simulator</button>
+          <button class="cp-action-btn" onclick="selectView('specs')">📚 Tab Sensor Specs</button>
+        </div>
+      `;
+    } else if (q.includes('can800') || q.includes('obd') || q.includes('ecu') || q.includes('bor tangki')) {
+      reply = `
+        <span class="cp-badge">📦 SPESIFIKASI MODUL : OBD-II CAN800 ECU TELEMETRY</span><br>
+        <strong>Perangkat:</strong> Modul CAN800 Plug & Play.<br>
+        <strong>Cara Kerja:</strong> Membaca langsung data digital dari komputer mesin (ECU) kendaraan melalui port OBD-II / J1939. Tanpa potong kabel dan tanpa bor tangki BBM.<br>
+        <strong>Data Output:</strong> Persentase sisa BBM (liter/persen), konsumsi saat idle vs jalan, RPM mesin, suhu oli, dan odometer riil ECU.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Untuk efisiensi BBM, modul OBD-II CAN800 membaca langsung dari komputer mesin. Bapak bisa pantau akurat konsumsi solar saat kerja vs saat idle tanpa merusak garansi unit."</em>
+        <div class="cp-action-row">
+          <button class="cp-action-btn" onclick="openPitchInSim('result_mining_fuel')">⚡ Buka di Simulator</button>
+          <button class="cp-action-btn" onclick="selectView('specs')">📚 Tab Sensor Specs</button>
+        </div>
+      `;
+    } else if (q.includes('jc261') || q.includes('jc450') || q.includes('dashcam') || q.includes('dms') || q.includes('adas') || q.includes('fatigue')) {
+      reply = `
+        <span class="cp-badge">📦 SPESIFIKASI HARDWARE : AI DASHCAM (JC261 / JC450)</span><br>
+        <strong>Tipe:</strong> JC261 (Dual Cam: Depan + Kabin) & JC450 (Multi-Channel hingga 4-5 Kamera).<br>
+        <strong>Fitur AI:</strong> Driver Monitoring System (DMS: deteksi kantuk, mata terpejam, main HP, merokok) + ADAS (peringatan tabrakan depan & keluar jalur).<br>
+        <strong>Kelebihan:</strong> Video tersimpan di SD Card lokal dan bisa di-request sebagai klip 1 menit langsung dari dashboard kantor.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Kamera AI DMS IntelliTrac langsung membunyikan alarm suara di kabin saat supir lelah atau hilang fokus, membantu supir tetap terjaga dan melindungi armada dari risiko fatalitas di jalan."</em>
+        <div class="cp-action-row">
+          <button class="cp-action-btn" onclick="openPitchInSim('result_mdvr')">⚡ Buka di Simulator</button>
+          <button class="cp-action-btn" onclick="selectView('specs')">📚 Tab Sensor Specs</button>
+        </div>
+      `;
+    } else if (q.includes('suhu') || q.includes('temp') || q.includes('haccp') || q.includes('reefer') || q.includes('pendingin')) {
+      reply = `
+        <span class="cp-badge">📦 SPESIFIKASI SENSOR : MULTI-TEMPERATURE PROBE (HACCP)</span><br>
+        <strong>Perangkat:</strong> Digital Temperature Sensor Probe (hingga 3 titik boks).<br>
+        <strong>Rentang Ukur:</strong> -40°C hingga +80°C dengan sertifikasi kalibrasi HACCP.<br>
+        <strong>Data Output:</strong> Grafik riwayat suhu perjalanan, alert instan jika suhu drop, dan laporan kepatuhan audit cold chain.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Bu, untuk menjaga kualitas kargo frozen dan fresh food tetap sesuai standar buyer, sensor suhu IntelliTrac memantau boks pendingin secara real-time dan otomatis menyediakan grafik suhu digital untuk bukti audit resmi."</em>
+        <div class="cp-action-row">
+          <button class="cp-action-btn" onclick="openPitchInSim('result_cold_temp')">⚡ Buka di Simulator</button>
+          <button class="cp-action-btn" onclick="selectView('specs')">📚 Tab Sensor Specs</button>
+        </div>
+      `;
+    } else if (q.includes('rotasi') || q.includes('rotary') || q.includes('molen') || q.includes('mixer') || q.includes('semen')) {
+      reply = `
+        <span class="cp-badge">📦 SPESIFIKASI SENSOR : DRUM ROTATION SENSOR</span><br>
+        <strong>Perangkat:</strong> Inductive Proximity / Rotary Sensor pada drum mixer semen.<br>
+        <strong>Cara Kerja:</strong> Mendeteksi arah putaran drum (putar kanan = aduk, putar kiri = tuang/unloading).<br>
+        <strong>Fungsi:</strong> Memastikan proses penuangan semen hanya terjadi di koordinat proyek resmi dan mendeteksi jika semen dicuri di jalan.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Pak, sensor rotasi drum IntelliTrac mendeteksi arah putaran drum molen untuk memastikan semen dituang tepat di area proyek yang ditentukan, lengkap dengan notifikasi otomatis ke kantor."</em>
+        <div class="cp-action-row">
+          <button class="cp-action-btn" onclick="openPitchInSim('result_heavy_concrete')">⚡ Buka di Simulator</button>
+          <button class="cp-action-btn" onclick="selectView('specs')">📚 Tab Sensor Specs</button>
+        </div>
+      `;
+    } else if (q.includes('rfid') || q.includes('sio') || q.includes('buzzer') || q.includes('forklift')) {
+      reply = `
+        <span class="cp-badge">📦 SPESIFIKASI SENSOR : DRIVER RFID & SPEED BUZZER</span><br>
+        <strong>Perangkat:</strong> RFID Reader 13.56MHz + Speed Alarm Buzzer 85dB.<br>
+        <strong>Cara Kerja:</strong> Forklift hanya bisa starter setelah operator tap kartu RFID resmi. Jika kecepatan di lorong gudang melampaui batas aman (misal >10 km/jam), buzzer langsung berbunyi.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Pak, untuk mendukung standar K3 di area pergudangan, forklift dapat diatur hanya menyala setelah operator bersertifikat menempelkan kartu RFID resminya. Lingkungan gudang jadi jauh lebih tertib dan aman."</em>
+        <div class="cp-action-row">
+          <button class="cp-action-btn" onclick="openPitchInSim('result_mfg_forklift')">⚡ Buka di Simulator</button>
+          <button class="cp-action-btn" onclick="selectView('specs')">📚 Tab Sensor Specs</button>
+        </div>
+      `;
+    } else if (q.includes('starter kill') || q.includes('cut off') || q.includes('mati mesin') || q.includes('relay')) {
+      reply = `
+        <span class="cp-badge">📦 SPESIFIKASI FITUR : REMOTE STARTER KILL & BACKUP BATTERY</span><br>
+        <strong>Perangkat:</strong> Starter Cut-off Relay 12V/24V + Internal Backup Battery Li-ion.<br>
+        <strong>Cara Kerja:</strong> Memutus starter mesin secara bertahap dan aman melalui aplikasi. Jika kabel aki dilepas paksa oleh pihak tak bertanggung jawab, baterai cadangan tetap mengirimkan sinyal lokasi.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Pak, sesuai regulasi PSAKBI Pasal 3 Ayat 1.3, penggelapan sewa tidak ditanggung asuransi standar. Fitur starter kill jarak jauh dan baterai cadangan IntelliTrac adalah benteng pertahanan mandiri terbaik bagi pemilik rental."</em>
+        <div class="cp-action-row">
+          <button class="cp-action-btn" onclick="openPitchInSim('result_rental_kill')">⚡ Buka di Simulator</button>
+          <button class="cp-action-btn" onclick="selectView('specs')">📚 Tab Sensor Specs</button>
+        </div>
+      `;
+    }
+    // C. OBJECTION HANDLING BATTLECARDS
     else if (q.includes('mahal') || q.includes('harga') || q.includes('budget') || q.includes('biaya') || q.includes('kemahalan') || q.includes('diskon')) {
       reply = `
         <span class="cp-badge">🛡️ BATTLECARD : HARGA & BUDGET</span><br>
-        <strong>Kunci Jawaban:</strong> Alihkan perdebatan dari harga perangkat ke <em>Cost of Inaction</em> (biaya kerugian jika masalah dibiarkan).<br><br>
+        <strong>Kunci Jawaban:</strong> Alihkan perdebatan dari harga beli ke <em>Cost of Inaction</em> (biaya kerugian jika masalah dibiarkan).<br><br>
         <strong>Skrip Sales:</strong> <em>"Pak, kami paham investasi di awal terasa ada pertimbangan. Tapi jika dihitung, 1 truk solar hilang 50 liter seminggu atau 1 rit kargo rusak karena suhu drop, kerugiannya dalam 3 bulan sudah melampaui harga perangkat ini."</em>
         <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="selectView('battlecard')">🛡️ Buka Semua Battlecards</button>
+          <button class="cp-action-btn" onclick="selectView('battlecard')">🛡️ Buka Tab Battlecards</button>
         </div>
       `;
     } else if (q.includes('vendor') || q.includes('kompetitor') || q.includes('sudah pakai') || q.includes('vendor lama') || q.includes('provider lain')) {
@@ -2461,7 +2557,7 @@ function sendCopilotPrompt() {
         <strong>Kunci Jawaban:</strong> Validasi keunggulan vendor lama, lalu tanyakan titik buta (blind spot) yang belum tercover.<br><br>
         <strong>Skrip Sales:</strong> <em>"Bagus sekali jika armada Bapak sudah terlindungi GPS. Namun sering kali GPS standar hanya titik lokasi. Saat ada insiden solar drop, pintu dibuka paksa, atau supir hilang fokus, vendor eksisting Bapak bisa sediakan bukti data telemetri dan video instan ke kantor?"</em>
         <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="selectView('battlecard')">🛡️ Buka Semua Battlecards</button>
+          <button class="cp-action-btn" onclick="selectView('battlecard')">🛡️ Buka Tab Battlecards</button>
         </div>
       `;
     } else if (q.includes('garansi') || q.includes('hangus') || q.includes('dealer')) {
@@ -2469,128 +2565,77 @@ function sendCopilotPrompt() {
         <span class="cp-badge">🛡️ BATTLECARD : GARANSI KENDARAAN</span><br>
         <strong>Kunci Jawaban:</strong> Tekankan modul telemetri <strong>OBD-II CAN800 Plug & Play</strong> yang 100% tanpa kupas kabel atau modifikasi tangki.<br><br>
         <strong>Skrip Sales:</strong> <em>"Untuk unit baru, kita gunakan modul OBD-II CAN800 yang tinggal dicolok ke port standar kendaraan. Tidak ada kabel yang dikupas dan tidak ada tangki yang dibor, sehingga garansi resmi pabrikan tetap 100% aman."</em>
+        <div class="cp-action-row">
+          <button class="cp-action-btn" onclick="selectView('battlecard')">🛡️ Buka Tab Battlecards</button>
+        </div>
       `;
     }
-    // C. SENSOR & HARDWARE SPECIFIC
-    else if (q.includes('door') || q.includes('pintu')) {
-      reply = `
-        <span class="cp-badge">🚪 SENSOR : DOOR AUTO-CAPTURE</span><br>
-        <strong>Solusi:</strong> Magnetic Door Sensor + Kamera JC261 / JC450.<br>
-        <strong>Fungsi:</strong> Begitu pintu boks dibuka di luar titik resmi, kamera otomatis merekam video 5-15 detik dan mengirimkan alarm ke kantor.<br><br>
-        <strong>Skrip Sales:</strong> <em>"Dengan sensor pintu terintegrasi kamera, manajemen langsung tahu detik demi detik siapa yang membuka kargo dan apa yang terjadi di pintu boks."</em>
-        <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="openPitchInSim('result_coldchain_cam')">⚡ Simulasi Cold Chain Cam</button>
-          <button class="cp-action-btn" onclick="selectView('sensors')">📦 Spesifikasi Sensor</button>
-        </div>
-      `;
-    } else if (q.includes('pto') || q.includes('hourmeter') || q.includes('hidrolik') || q.includes('alat berat') || q.includes('excavator') || q.includes('tambang') || q.includes('mining')) {
+    // D. SECTOR & GENERAL SCENARIOS
+    else if (q.includes('tambang') || q.includes('mining')) {
       reply = `
         <span class="cp-badge">⛏️ SEKTOR : MINING & HEAVY EQUIPMENT</span><br>
-        <strong>Solusi:</strong> VT-45 + PTO Indicator Sensor & OBD-II CAN800.<br>
-        <strong>Fungsi:</strong> Membedakan jam kerja aktual saat hidrolik beroperasi vs mesin idle, serta memantau konsumsi solar ECU tanpa bor tangki.<br><br>
-        <strong>Skrip Sales:</strong> <em>"Pak, di area tambang beban kerja unit tinggi sekali. Sensor PTO IntelliTrac mencatat jam kerja riil saat hidrolik bekerja, bukan sekadar kunci kontak ON. Jadwal servis berkala jadi jauh lebih presisi."</em>
+        <strong>Solusi Utama:</strong> VT-45 + PTO Indicator, OBD-II CAN800 & JC450 Multi-Cam.<br>
+        <strong>Fokus Nilai:</strong> Akurasi jadwal overhaul mesin, efisiensi solar saat idle, dan monitoring keselamatan supir hauling malam.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Pak, di area tambang kan beban kerja unit tinggi sekali ya. Sensor PTO IntelliTrac ini bantu mencatat jam kerja riil saat hidrolik bekerja, bukan sekadar kunci kontak ON. Jadwal servis berkala jadi jauh lebih presisi."</em>
         <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="openPitchInSim('result_mining_hm')">⚡ Simulasi Mining PTO</button>
-          <button class="cp-action-btn" onclick="openPitchInSim('result_mining_fuel')">⚡ Simulasi Mining Fuel</button>
+          <button class="cp-action-btn" onclick="openPitchInSim('result_mining_hm')">⚡ Buka di Simulator</button>
         </div>
       `;
-    } else if (q.includes('sawit') || q.includes('kebun') || q.includes('agri') || q.includes('pks') || q.includes('blank spot') || q.includes('offline') || q.includes('tonase')) {
+    } else if (q.includes('sawit') || q.includes('kebun') || q.includes('agri') || q.includes('pks')) {
       reply = `
         <span class="cp-badge">🌴 SEKTOR : AGRICULTURE & PLANTATION</span><br>
-        <strong>Solusi:</strong> VT-45 + Geofence Route Alert & Offline Buffer Storage.<br>
-        <strong>Fungsi:</strong> Mengawal rute resmi dari blok kebun ke PKS agar tidak ada selisih muatan, serta menyimpan data rute di memori internal saat sinyal blank spot.<br><br>
-        <strong>Skrip Sales:</strong> <em>"Untuk memastikan hasil panen sampai utuh ke PKS, Geofence IntelliTrac mengawal rute pengiriman resmi. Data tetap aman tersimpan di memori saat unit melintasi area pedalaman tanpa sinyal."</em>
+        <strong>Solusi Utama:</strong> VT-45 + Geofence Route Alert & Offline Buffer Storage.<br>
+        <strong>Fokus Nilai:</strong> Mengawal integritas tonase hasil panen dari blok kebun ke PKS dan pencatatan jam kerja traktor di area blank spot.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Pak, untuk memastikan hasil panen dari blok kebun sampai utuh ke PKS, Geofence IntelliTrac membantu mengawal rute pengiriman resmi. Data tetap aman tersimpan di memori saat unit di pedalaman kebun."</em>
         <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="openPitchInSim('result_agri_solar')">⚡ Simulasi Sawit Geofence</button>
-          <button class="cp-action-btn" onclick="openPitchInSim('result_agri_offline')">⚡ Simulasi Offline Buffer</button>
+          <button class="cp-action-btn" onclick="openPitchInSim('result_agri_solar')">⚡ Buka di Simulator</button>
         </div>
       `;
-    } else if (q.includes('suhu') || q.includes('cold') || q.includes('reefer') || q.includes('frozen') || q.includes('haccp') || q.includes('dingin')) {
-      reply = `
-        <span class="cp-badge">❄️ SEKTOR : COLD CHAIN & LOGISTICS</span><br>
-        <strong>Solusi:</strong> VT-45 + Multi-Temperature Probe (HACCP) & Door Sensor.<br>
-        <strong>Fungsi:</strong> Pemantauan suhu 3 titik boks pendingin real-time, grafik audit suhu HACCP digital, dan perlindungan kargo dari suhu drop.<br><br>
-        <strong>Skrip Sales:</strong> <em>"Bu, untuk menjaga kualitas kargo frozen tetap sesuai standar buyer, sensor suhu IntelliTrac memantau boks pendingin secara real-time dan otomatis menyediakan grafik suhu digital untuk bukti audit resmi."</em>
-        <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="openPitchInSim('result_cold_temp')">⚡ Simulasi Cold Chain Temp</button>
-          <button class="cp-action-btn" onclick="openPitchInSim('result_coldchain_cam')">⚡ Simulasi Cargo Cam</button>
-        </div>
-      `;
-    } else if (q.includes('molen') || q.includes('mixer') || q.includes('semen') || q.includes('konstruksi') || q.includes('rotasi') || q.includes('drum')) {
-      reply = `
-        <span class="cp-badge">🏗️ SEKTOR : CONSTRUCTION & INFRASTRUCTURE</span><br>
-        <strong>Solusi:</strong> VT-45 + Rotary Drum Sensor & Heavy Idle Telemetry.<br>
-        <strong>Fungsi:</strong> Mendeteksi arah putaran drum mixer (unloading semen) untuk memastikan penuangan tepat di titik proyek resmi.<br><br>
-        <strong>Skrip Sales:</strong> <em>"Pak, sensor rotasi drum IntelliTrac mendeteksi kapan drum molen menuang semen untuk memastikan penuangan terjadi tepat di lokasi proyek resmi, lengkap dengan alert otomatis ke kantor."</em>
-        <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="openPitchInSim('result_heavy_concrete')">⚡ Simulasi Molen Concrete</button>
-          <button class="cp-action-btn" onclick="openPitchInSim('result_heavy_idle')">⚡ Simulasi Heavy Idle</button>
-        </div>
-      `;
-    } else if (q.includes('forklift') || q.includes('pabrik') || q.includes('manufaktur') || q.includes('gudang') || q.includes('sio') || q.includes('inter-plant')) {
-      reply = `
-        <span class="cp-badge">🏭 SEKTOR : MANUFACTURING & WAREHOUSE</span><br>
-        <strong>Solusi:</strong> VT-45 + Driver RFID Reader & Speed Buzzer Lorong.<br>
-        <strong>Fungsi:</strong> Forklift hanya menyala setelah tap kartu SIO resmi, buzzer berbunyi saat ngebut di lorong gudang, dan logbook digital K3.<br><br>
-        <strong>Skrip Sales:</strong> <em>"Pak, forklift hanya menyala setelah operator bersertifikat menempelkan kartu RFID resminya. Dilengkapi buzzer pembatas kecepatan di lorong, lingkungan gudang jadi jauh lebih tertib dan aman."</em>
-        <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="openPitchInSim('result_mfg_forklift')">⚡ Simulasi Forklift RFID</button>
-          <button class="cp-action-btn" onclick="openPitchInSim('result_mfg_dispatch')">⚡ Simulasi Shuttle Inter-Plant</button>
-        </div>
-      `;
-    } else if (q.includes('bus') || q.includes('brt') || q.includes('akap') || q.includes('penumpang') || q.includes('ngantuk') || q.includes('dms') || q.includes('adas') || q.includes('supir')) {
+    } else if (q.includes('bus') || q.includes('brt') || q.includes('akap') || q.includes('penumpang') || q.includes('supir')) {
       reply = `
         <span class="cp-badge">🚌 SEKTOR : PUBLIC TRANSPORTATION</span><br>
-        <strong>Solusi:</strong> JC261 / JC450 AI DMS + ADAS & Route Corridor.<br>
-        <strong>Fungsi:</strong> Alarm suara kabin seketika saat supir ngantuk/merokok/main HP, dan pemantauan koridor rute trayek bus.<br><br>
-        <strong>Skrip Sales:</strong> <em>"Pak, kamera AI DMS IntelliTrac langsung membunyikan alarm di kabin saat supir menunjukkan tanda kelelahan atau hilang fokus, membantu supir tetap terjaga dan menjaga keselamatan penumpang."</em>
+        <strong>Solusi Utama:</strong> JC261 / JC450 AI DMS + ADAS & Route Corridor.<br>
+        <strong>Fokus Nilai:</strong> Menjaga keselamatan penumpang dan reputasi PO bus dari risiko kelalaian supir ngantuk/distraksi.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Pak, menjaga keselamatan puluhan penumpang di setiap perjalanan adalah modal utama reputasi PO bus. Kamera AI DMS IntelliTrac langsung membunyikan peringatan suara di kabin saat supir menunjukkan tanda kelelahan."</em>
         <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="openPitchInSim('result_mdvr')">⚡ Simulasi AI DMS Bus</button>
-          <button class="cp-action-btn" onclick="openPitchInSim('result_trans_corridor')">⚡ Simulasi Route Corridor</button>
+          <button class="cp-action-btn" onclick="openPitchInSim('result_mdvr')">⚡ Buka di Simulator</button>
         </div>
       `;
     } else if (q.includes('wisata') || q.includes('ancol') || q.includes('warawiri') || q.includes('tram') || q.includes('eta') || q.includes('halte')) {
       reply = `
         <span class="cp-badge">🎡 SEKTOR : TOURISM & AMUSEMENT PARK</span><br>
-        <strong>Solusi:</strong> VT-45 + Public Station Display API (Studi Kasus Ancol).<br>
-        <strong>Fungsi:</strong> Layar informasi di halte menampilkan posisi live shuttle dan hitungan mundur menit kedatangan (ETA countdown).<br><br>
-        <strong>Skrip Sales:</strong> <em>"Pak, seperti di shuttle kawasan wisata, layar di halte menampilkan posisi armada dan estimasi menit kedatangan secara real-time. Pengunjung merasa nyaman tanpa cemas menunggu."</em>
+        <strong>Solusi Utama:</strong> VT-45 + Public Station Display API (Studi Kasus Ancol).<br>
+        <strong>Fokus Nilai:</strong> Layar informasi di halte menampilkan posisi live shuttle dan hitungan mundur menit kedatangan (ETA countdown).<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Pak, seperti di shuttle kawasan wisata, layar di halte menampilkan posisi armada dan estimasi menit kedatangan secara real-time. Pengunjung merasa nyaman tanpa cemas menunggu."</em>
         <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="openPitchInSim('result_tour_eta')">⚡ Simulasi Station ETA</button>
-          <button class="cp-action-btn" onclick="openPitchInSim('result_tour_cam')">⚡ Simulasi Tourism Cam</button>
+          <button class="cp-action-btn" onclick="openPitchInSim('result_tour_eta')">⚡ Buka di Simulator</button>
         </div>
       `;
-    } else if (q.includes('rental') || q.includes('sewa') || q.includes('kabur') || q.includes('gelap') || q.includes('psakbi') || q.includes('mati mesin') || q.includes('cut off') || q.includes('starter kill')) {
+    } else if (q.includes('rental') || q.includes('sewa') || q.includes('kabur') || q.includes('gelap') || q.includes('psakbi')) {
       reply = `
         <span class="cp-badge">🔑 SEKTOR : PERSONAL & RENTAL SAFETY</span><br>
-        <strong>Solusi:</strong> VT-45 + Starter Kill Relay, Internal Backup Battery & JC261.<br>
-        <strong>Fungsi:</strong> Matikan mesin dari aplikasi secara aman saat terjadi penggelapan, tetap aktif saat aki dilepas paksa, dan perlindungan klausul PSAKBI 3.1.3.<br><br>
-        <strong>Skrip Sales:</strong> <em>"Pak, sesuai PSAKBI Pasal 3 Ayat 1.3, penggelapan sewa tidak dicover asuransi standar. Baterai cadangan dan fitur starter kill jarak jauh IntelliTrac adalah proteksi mandiri terbaik bagi pemilik rental."</em>
+        <strong>Solusi Utama:</strong> VT-45 + Starter Kill Relay, Internal Backup Battery & JC261.<br>
+        <strong>Fokus Nilai:</strong> Proteksi mandiri atas risiko penggelapan unit sewa yang tidak dicover asuransi PSAKBI 3.1.3.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Pak, dalam bisnis rental kendaraan, perlindungan aset adalah prioritas yang paling mendasar. Fitur starter kill jarak jauh memberikan kontrol penuh untuk mematikan mesin dari aplikasi secara aman."</em>
         <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="openPitchInSim('result_rental_kill')">⚡ Simulasi Rental Starter Kill</button>
-          <button class="cp-action-btn" onclick="openPitchInSim('result_rental_geo')">⚡ Simulasi Rental Geofence</button>
+          <button class="cp-action-btn" onclick="openPitchInSim('result_rental_kill')">⚡ Buka di Simulator</button>
         </div>
       `;
-    } else if (q.includes('solar') || q.includes('bbm') || q.includes('kuras') || q.includes('can800') || q.includes('obd')) {
+    } else if (q.includes('solar') || q.includes('bbm') || q.includes('kuras')) {
       reply = `
         <span class="cp-badge">⛽ TELEMETRI : OBD-II CAN800 & BBM</span><br>
-        <strong>Solusi:</strong> OBD-II CAN800 ECU Telemetry Module.<br>
-        <strong>Fungsi:</strong> Membaca persentase BBM, konsumsi solar saat jalan vs saat idle, RPM, dan odometer langsung dari ECU tanpa bor tangki.<br><br>
-        <strong>Skrip Sales:</strong> <em>"Untuk efisiensi BBM, modul OBD-II CAN800 membaca langsung dari komputer mesin. Bapak bisa pantau akurat konsumsi solar saat kerja vs saat idle tanpa merusak garansi unit."</em>
+        <strong>Solusi Utama:</strong> OBD-II CAN800 ECU Telemetry Module.<br>
+        <strong>Fokus Nilai:</strong> Membaca persentase BBM dan konsumsi solar idle vs jalan langsung dari ECU tanpa merusak garansi unit.<br><br>
+        <strong>💬 Skrip Sales:</strong> <em>"Untuk efisiensi BBM, modul OBD-II CAN800 membaca langsung dari komputer mesin. Bapak bisa pantau akurat konsumsi solar saat kerja vs saat idle tanpa merusak garansi unit."</em>
         <div class="cp-action-row">
-          <button class="cp-action-btn" onclick="openPitchInSim('result_mining_fuel')">⚡ Simulasi Telemetri BBM</button>
-          <button class="cp-action-btn" onclick="selectView('sensors')">📦 Lihat Sensor CAN800</button>
+          <button class="cp-action-btn" onclick="openPitchInSim('result_mining_fuel')">⚡ Buka di Simulator</button>
         </div>
       `;
     }
-    // D. FALLBACK SMART CONSULTATIVE HELPER
+    // E. SMART FALLBACK
     else {
       reply = `
-        Untuk topik <strong>"${txt}"</strong>, berikut rekomendasi solusi terdekat dari Playbook IntelliTrac:
-        <br><br>
-        Gunakan <strong>GPS Tracker VT-45</strong> atau <strong>AI Dashcam JC261/JC450</strong> yang dikombinasikan dengan sensor telemetri terkait.
-        <br><br>
-        Pilih salah satu kategori spesifik berikut untuk membuka skrip pitching lengkap:
+        Untuk topik <strong>"${txt}"</strong>, Anda bisa memilih kategori solusi terdekat berikut untuk melihat spesifikasi dan skrip pitching lengkap:
         <div class="cp-chip-wrap">
           <span class="cp-chip" onclick="askCopilot('Tambang & Alat Berat')">⛏️ Tambang & Alat Berat</span>
           <span class="cp-chip" onclick="askCopilot('Perkebunan Sawit')">🌴 Kebun Sawit</span>
