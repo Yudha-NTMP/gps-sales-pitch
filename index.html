@@ -2601,7 +2601,7 @@ function sendCopilotPrompt() {
           <button class="cp-action-btn" onclick="openPitchInSim('result_mdvr')">⚡ Buka di Simulator</button>
         </div>
       `;
-    } else if (q.includes('wisata') || q.includes('ancol') || q.includes('warawiri') || q.includes('tram') || q.includes('eta') || q.includes('halte')) {
+    } else if (q.includes('wisata') || q.includes('ancol') || q.includes('warawiri') || q.includes('tram') || q.includes('eta') || q.includes('halte') || q.includes('tourism') || q.includes('taman bermain') || q.includes('golf') || q.includes('theme park')) {
       reply = `
         <span class="cp-badge">🎡 SEKTOR : TOURISM & AMUSEMENT PARK</span><br>
         <strong>Solusi Utama:</strong> VT-45 + Public Station Display API (Studi Kasus Ancol).<br>
@@ -2637,6 +2637,7 @@ function sendCopilotPrompt() {
       reply = `
         Untuk topik <strong>"${txt}"</strong>, Anda bisa memilih kategori solusi terdekat berikut untuk melihat spesifikasi dan skrip pitching lengkap:
         <div class="cp-chip-wrap">
+          <span class="cp-chip" onclick="askCopilot('Amusement Park & Tourism')">🎡 Tourism & Park</span>
           <span class="cp-chip" onclick="askCopilot('Tambang & Alat Berat')">⛏️ Tambang & Alat Berat</span>
           <span class="cp-chip" onclick="askCopilot('Perkebunan Sawit')">🌴 Kebun Sawit</span>
           <span class="cp-chip" onclick="askCopilot('Logistik Cold Chain')">❄️ Cold Chain</span>
