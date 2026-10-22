@@ -4,6 +4,5 @@
 
 # Whitelist only the public web files
 !index.html
-!Sales_Flowchart_IntelliTrac_v6.html
 !.gitignore
 !README.md
