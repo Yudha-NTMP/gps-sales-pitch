@@ -1,46 +1,43 @@
-# GPS Sales Pitch Engine
+# IntelliTrac Sales Pitch Engine
 
-Interactive B2B Sales Execution Matrix & Pitching Engine for Fleet Telematics, IoT Hardware, and GPS Tracking Solutions across 8 core industry sectors.
+Internal sales tool for the IntelliTrac Indonesia team: a pitch matrix, pitch simulator, objection answers, and sensor reference for GPS tracking and fleet telematics across 8 industry sectors.
 
-## 🚀 Live Demo
-Access the interactive web app:
-👉 **[https://yudha-ntmp.github.io/gps-sales-pitch/](https://yudha-ntmp.github.io/gps-sales-pitch/)**
+## Live app
 
----
+[https://yudha-ntmp.github.io/gps-sales-pitch/](https://yudha-ntmp.github.io/gps-sales-pitch/)
 
-## 🎯 Key Features
-
-1. **Studio Matrix (8 Industry Sectors):**
-   - Mining, Oil & Gas
-   - Agriculture & Plantation
-   - Retail & Cold Chain Logistics
-   - Construction & Heavy Equipment
-   - Manufacturing & Warehousing
-   - Public Transportation (BRT & Shuttle)
-   - Amusement Park & Tourism
-   - Car Rental & Passenger Safety
-
-2. **3-Stage Sales Execution Pipeline:**
-   - **Tahap 1:** Fleet Qualification (Armada & Profil Kebutuhan)
-   - **Tahap 2:** Pain Point Diagnosis (Masalah Operasional Lapangan)
-   - **Tahap 3:** Hardware Recommendation & High-Impact Pitch Scripts (*Cost of Inaction*)
-
-3. **Interactive Pitch Simulator:**
-   - Step-by-step interactive consultative selling flow.
-   - Dynamic recommendation & tailored pitch script generation.
-
-4. **Objection Battlecards & Sensor Specs:**
-   - Quick objection counter-tactics (Harga, Vendor Eksisting, dll).
-   - Technical telemetry sensor specs (Fuel probe, Temperature sensor, AI Dashcam, RFID, CANbus).
+Built for phones first, since the team opens it in front of clients. Light theme by default, with a Solarized Dark toggle.
 
 ---
 
-## 🛠️ Tech Stack
-- **Architecture:** 100% Standalone Single-Page Application (SPA)
-- **Tech:** Pure HTML5, CSS3 Modern Dark UI, Vanilla JavaScript
-- **Zero Dependencies:** Fast loading, responsive, and mobile-friendly.
+## What's inside (v7)
+
+1. **Matriks Sektor:** 8 sectors, each walked through 3 stages.
+   - Tahap 1: fleet qualification, with the question to ask the client.
+   - Tahap 2: problem diagnosis (23 client problems in total).
+   - Tahap 3: recommended device, sensors, reports, and two pitch scripts.
+2. **Simulasi Pitch:** practice the same flow step by step, from sector to problem to pitch.
+3. **Jawab Keberatan:** answers to common client objections (price, cabin cameras, blank spots, dealer GPS, trials, insurance, existing vendors, warranty).
+4. **Spesifikasi Sensor:** 13 sensors and features, each listing the devices that support it.
+5. **Tanya Cepat:** a keyword lookup over the app's own content. It is not an AI model.
+
+Sectors: Mining, Oil & Gas; Agriculture & Plantation; Retail & Cold Chain Logistics; Construction & Infrastructure; Manufacturing & Warehouse; Public Transportation; Amusement Park & Tourism; Personal & Rental Vehicle Safety.
+
+Device and sensor claims follow the IntelliTrac 2026 product catalogue.
 
 ---
 
-## 📄 License
-This project is open for demonstration and portfolio purposes.
+## Tech
+
+- One self-contained HTML file (`index.html`): HTML, CSS, and vanilla JavaScript, with no build step and no framework.
+- All pitch content lives in a single data block inside the script, so every view reads from the same source.
+- The only external resource is Google Fonts (Poppins and Roboto).
+- Hosted on GitHub Pages.
+
+---
+
+## License
+
+Copyright © 2026 IntelliTrac Indonesia. All rights reserved.
+
+This repository is public only so the app can be served through GitHub Pages. The code, pitch scripts, and product content are proprietary and may not be copied, modified, redistributed, or reused without written permission from IntelliTrac Indonesia. See [LICENSE](LICENSE).
